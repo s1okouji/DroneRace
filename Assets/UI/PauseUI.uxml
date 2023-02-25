@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="container" style="flex-grow: 1; background-color: rgba(255, 255, 255, 0.13); visibility: hidden;">
+        <ui:VisualElement name="button_container" style="position: relative; margin-left: auto; margin-right: auto; margin-top: auto; margin-bottom: auto; left: 0; top: 0; background-image: url(&apos;project://database/Assets/UI/images/PauseBack.png?fileID=2800000&amp;guid=18130dc3dc1d1ba42a89e6d100f4f1ec&amp;type=3#PauseBack&apos;); height: 40%; width: 50%; justify-content: space-between; visibility: hidden;">
+            <ui:Button text="Continue" display-tooltip-when-elided="true" name="continue" style="justify-content: space-between; width: auto; height: 20%; font-size: 66px;" />
+            <ui:Button text="Restart" display-tooltip-when-elided="true" name="restart" style="height: 20%; font-size: 66px;" />
+            <ui:Button text="Quit" display-tooltip-when-elided="true" name="quit" style="height: 20%; font-size: 66px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
