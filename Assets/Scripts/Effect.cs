@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Assets.Scripts;
 using DG.Tweening;
 
 public class Effect : MonoBehaviour
@@ -24,19 +25,22 @@ public class Effect : MonoBehaviour
         ui = GetComponent<UIDocument>();
         root = ui.rootVisualElement;
         effectSyutyu = root.Q<VisualElement>("effectSyutyu");
+        TimeAttack.GetInstance().BoostStartEvent += OnBoostStart;
+        TimeAttack.GetInstance().BoostEndEvent += OnBoostEnd;
     }
 
     // Update is called once per frame
     void Update()
+    {        
+    }
+
+    private void OnBoostStart(BoostStartEventArgs e)
     {
-        currentOpacity = effectSyutyu.resolvedStyle.opacity;
-        if(rigidbody.velocity.magnitude > moveDrone.maxSpeed && currentOpacity == 0)
-        {
-            DOTween.To(() => effectSyutyu.resolvedStyle.opacity, x => effectSyutyu.style.opacity = new StyleFloat(x), 1, 2);
-        }
-        if(rigidbody.velocity.magnitude < moveDrone.maxSpeed && currentOpacity > 0)
-        {
-            DOTween.To(() => effectSyutyu.resolvedStyle.opacity, x => effectSyutyu.style.opacity = new StyleFloat(x), 0, 2);
-        }
+        DOTween.To(() => effectSyutyu.resolvedStyle.opacity, x => effectSyutyu.style.opacity = new StyleFloat(x), 1, 2);
+    }
+
+    private void OnBoostEnd(BoostEndEventArgs e)
+    {
+        DOTween.To(() => effectSyutyu.resolvedStyle.opacity, x => effectSyutyu.style.opacity = new StyleFloat(x), 0, 2);
     }
 }

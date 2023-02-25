@@ -17,6 +17,8 @@ namespace Assets.Scripts
         public delegate void LapEventHandler(object sender, LapEventArgs e);
         public delegate void CountDownEventHandler(CountDownEventArgs e);
         public delegate void OverPowerEventHandler(OverPowerEventArgs e);
+        public delegate void BoostStartEventHandler(BoostStartEventArgs e);
+        public delegate void BoostEndEventHandler(BoostEndEventArgs e);
 
         public event FinishEventHandler FinishEvent;
         public event PassGateEventHandler PassGateEvent;
@@ -25,6 +27,8 @@ namespace Assets.Scripts
         public event LapEventHandler LapEvent;
         public event CountDownEventHandler CountDownEvent;
         public event OverPowerEventHandler OverPowerEvent;
+        public event BoostStartEventHandler BoostStartEvent;
+        public event BoostEndEventHandler BoostEndEvent;
 
         public Race race;
 
@@ -109,5 +113,16 @@ namespace Assets.Scripts
         {
             OverPowerEvent.Invoke(e);
         }
+
+        public void OnBoostStart(BoostStartEventArgs e)
+        {
+            BoostStartEvent.Invoke(e);
+        }
+    
+        public void OnBoostEnd(BoostEndEventArgs e)
+        {
+            BoostEndEvent.Invoke(e);
+        }
+
     }
 }

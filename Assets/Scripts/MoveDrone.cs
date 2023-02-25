@@ -101,8 +101,19 @@ public class MoveDrone : MonoBehaviour
         }
     }
 
+    private void OnBoostStart(BoostStartEventArgs e)
+    {
+
+    }
+
+    private void OnBoostEnd(BoostEndEventArgs e)
+    {
+
+    }
+
     private void Auto()
     {
+        bool _boost = false;
         float v = Input.GetAxis("Vertical");
         float h = Input.GetAxis("Horizontal");
         float ud = Input.GetAxis("UpDown");
@@ -137,10 +148,29 @@ public class MoveDrone : MonoBehaviour
             var reqWatt = watt / fixedFrameRate;
             if(energy > 0)
             {
+                if(!boost)
+                {
+                    boost = true;                    
+                    TimeAttack.GetInstance().OnBoostStart(new BoostStartEventArgs());
+                }
+                _boost = true;
                 energy = Mathf.Max(energy - reqWatt, 0);
-                rigidBody.AddRelativeForce(new Vector3(0, 0, rigidBody.mass * ocAccelaration));                
-            }            
-        }        
+                rigidBody.AddRelativeForce(new Vector3(0, 0, rigidBody.mass * ocAccelaration));  
+            }
+        }
+
+        // ‘O‰ñ‚Ìupdate‚Å‚Íboost‚ğ‚µ‚Ä‚¢‚é‚ª,‚±‚Ìupdate‚Å‚Íboost‚ğ‚µ‚Ä‚¢‚È‚¢
+        if(!_boost && boost)
+        {
+            TimeAttack.GetInstance().OnBoostEnd(new BoostEndEventArgs());
+            boost = false;
+        }
+
+        // ‘O‰ñ‚Ìupdate‚Å‚Íboost‚ğ‚µ‚Ä‚¢‚È‚¢‚ªA‚±‚Ìupdate‚Å‚Íboost‚ğ‚µ‚Ä‚¢‚é
+        if(_boost && !boost)
+        {
+            TimeAttack.GetInstance().OnBoostStart(new BoostStartEventArgs());
+        }
 
         if (Input.GetKey(KeyCode.E))
         {
